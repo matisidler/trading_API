@@ -41,7 +41,7 @@ func main() {
 			mediaMovil10 = mediaMovil10 + valor
 		}
 		mediaMovil10 = mediaMovil10 / float32(len(closePrice))
-		fmt.Printf("media movil 10 períodos: %v\n", mediaMovil10)
+		fmt.Printf("simple moving average 10 periods: %v\n", mediaMovil10)
 
 		btc20days, _, err := finnhubClient.CryptoCandles(context.Background()).Symbol("BINANCE:BTCUSDT").Resolution("1").From(ahora.Add(20 * time.Minute * -1).Unix()).To(time.Now().Unix()).Execute()
 		if err != nil {
@@ -53,24 +53,24 @@ func main() {
 			mediaMovil20 = mediaMovil20 + valor
 		}
 		mediaMovil20 = mediaMovil20 / float32(len(closePrice))
-		fmt.Printf("media movil 20 períodos: %v\n", mediaMovil20)
+		fmt.Printf("simple moving average 20 periods: %v\n", mediaMovil20)
 
 		if mediaMovil10 > mediaMovil20 {
 			if status != true {
-				fmt.Println("COMPRAR")
+				fmt.Println("BUY")
 				status = true
 			} else if status == true {
-				fmt.Println("YA ESTÁS LONG")
+				fmt.Println("YOU'RE LONG")
 			}
 
 		}
 
 		if mediaMovil10 < mediaMovil20 {
 			if status != false {
-				fmt.Println("VENDER")
+				fmt.Println("SELL")
 				status = false
 			} else if status == false {
-				fmt.Println("YA ESTÁS SHORT")
+				fmt.Println("YOU'RE SHORT")
 			}
 
 		}
